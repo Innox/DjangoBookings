@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">My Room Bookings ({{ bookings.count }})</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Summary</a></li>
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for booking in bookings %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if booking.room.accommodation.image %}
+                                    <img src="{{ booking.room.accommodation.image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title">{{ booking.room.accommodation }}</h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ booking.guest_first_name }} {{ booking.guest_last_name }}
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ booking.CheckIn }} (Check In)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ booking.CheckOut }} (Check Out)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-bed"></i></span>{{ booking.room.type }} (Room Type)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ booking.totalPrice|intcomma }} (Total
+                                        Fee)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'cancel_booking' booking.id %}"
+                                       class="btn btn-danger">Cancel Booking</a>
+
+                                    <a href="{% url 'generate_pdf' booking.id %}"
+                                       class="btn btn-success">Get PDF</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Driver {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'custom/drivers.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title"><i class="fa fa-user-md"></i><small> Manage Driver</small>
+                        </h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation" class="active"><a href="{% url 'driver_list' %}"><i
+                                        class="fa fa-list-ol"></i> Driver List</a>
+                                </li>
+                                <li role="presentation"><a href="{% url 'driver_create' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Driver</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_driver_list">
+                                    <div class="x_content">
+
+                                        <table id="driver-table"
+                                               class="table table-sdrivered table-bordered dt-responsive nowrap"
+                                               cellspacing="0" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Driver Name</th>
+                                                <th>Driver Contact</th>
+                                                <th>Driver Address</th>
+                                                <th>Driver Image</th>
+{#                                                <th>Driver Rating</th>#}
+                                                <th>Active</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% include 'drivers/includes/partial_driver_list.html' %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- THE MODAL WE WILL BE USING -->
+                                <div class="modal fade" id="modal-driver" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#driver-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+

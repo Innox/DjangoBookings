@@ -1,0 +1,270 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Taxi {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'custom/taxis.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title"><i class="fa fa fa-taxi"></i><small> Manage Taxi</small>
+                        </h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation"><a href="{% url 'taxi_list' %}"><i
+                                        class="fa fa-list-ol"></i> Taxi List</a>
+                                </li>
+                                <li role="presentation"><a href="{% url 'taxi_create' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Taxi</a>
+                                </li>
+                                <li role="presentation" class="active"><a href="{% url 'taxi_update' taxi.pk %}"><i
+                                        class="fa fa-pencil-square-o"></i> Edit Taxi</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_taxi_list">
+                                    <div class="x_content">
+
+                                        <form action="{% url 'taxi_update' taxi.pk %}" name="edit"
+                                              id="edit" class="form-horizontal form-label-left"
+                                              enctype="multipart/form-data" method="post"
+                                              accept-charset="utf-8">
+                                            {% csrf_token %}
+
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="number">Cab Number <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" name="number"
+                                                           id="number" value="{{ taxi.number }}"
+                                                           placeholder="Cab Number"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="total_seats">Total Seat <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" name="total_seats"
+                                                           id="total_seats" value="{{ taxi.total_seats }}"
+                                                           placeholder="Total Seat"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="driver">Driver <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="driver"
+                                                            id="driver" required="required">
+                                                        <option value="{{ taxi.driver.pk }}">{{ taxi.driver }}</option>
+                                                        {% for driver in drivers %}
+                                                            <option value="{{ driver.pk }}">{{ driver.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="taxi_type">Cab for <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="taxi_type"
+                                                            id="taxi_type" required="required">
+                                                        <option value="{{ taxi.taxi_type }}">{{ taxi.taxi_type }}</option>
+                                                        <option value="TRUCK">TRUCK</option>
+                                                        <option value="SEDAN">SEDAN</option>
+                                                        <option value="VAN">VAN</option>
+                                                        <option value="WAGON">WAGON</option>
+                                                        <option value="CONVERTIBLE">CONVERTIBLE</option>
+                                                        <option value="SPORTS">SPORTS</option>
+                                                        <option value="SUV">SUV</option>
+                                                        <option value="DIESEL">DIESEL</option>
+                                                        <option value="LUXURY">LUXURY</option>
+                                                        <option value="HATCHBACK">HATCHBACK</option>
+                                                        <option value="OTHER">OTHER</option>
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="fare_ratio">Cab Fare Ratio <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="fare_ratio" id="fare_ratio"
+                                                           value="{{ taxi.fare_ratio }}"
+                                                           placeholder="Fare Ratio" required="required"
+                                                           type="text"
+                                                           autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="source">Area of Operation <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="source"
+                                                           id="source" value="{{ taxi.source }}"
+                                                           placeholder="Area of Operation"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Image </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="btn btn-default btn-file">
+                                                        <i class="fa fa-paperclip"></i> Upload <input
+                                                            class="form-control col-md-7 col-xs-12" name="image"
+                                                            id="image" type="file">
+                                                    </div>
+                                                    <div class="text-info">Image file format: .jpg, .jpeg, .png
+                                                        or .gif
+                                                    </div>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="taxi_info">Cab Info</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <textarea class="form-control col-md-7 col-xs-12"
+                                                                  name="taxi_info"
+                                                                  id="taxi_info" placeholder="Cab Info">
+                                                            {{ taxi.taxi_info }}
+                                                        </textarea>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="Is_View_on_Web">Is View on Web?</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="Is_View_on_Web" id="Is_View_on_Web">
+                                                        <option value="{{ cab.Is_View_on_Web }}">{{ cab.Is_View_on_Web }}</option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-md-offset-3">
+                                                    <a href="{% url 'taxi_list' %}"
+                                                       class="btn btn-primary">Cancel</a>
+                                                    <button id="send" type="submit" class="btn btn-success">
+                                                        Update
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                                <!-- THE MODAL WE WILL BE USING -->
+                                <div class="modal fade" id="modal-taxi">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <link href="{% static 'vendors/editor/jquery-te-1.4.0.css' %}" rel="stylesheet">
+        <script type="text/javascript" src="{% static 'vendors/editor/jquery-te-1.4.0.js' %}"></script>
+
+        <script type="text/javascript">
+            $('#note').jqte();
+        </script>
+
+
+        <link href="{% static 'vendors/datepicker/datepicker.css' %}" rel="stylesheet">
+        <script src="{% static 'vendors/datepicker/datepicker.js' %}"></script>
+
+        <script type="text/javascript">
+            $('#from_date').datepicker({format: 'yyyy-mm-dd'});
+            $('#to_date').datepicker({format: 'yyyy-mm-dd'});
+
+            $(document).ready(function () {
+                $('#taxi-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+

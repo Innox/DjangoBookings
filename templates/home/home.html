@@ -1,0 +1,127 @@
+{% extends "app/base_site.html" %}
+
+{% load static i18n total_tags %}
+
+{% block title %} Home {% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+
+{% block content %}
+    <div class="right_col" role="main">
+        <!-- top tiles -->
+        <div class="row">
+            <div class="tile_count">
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="stats-count-inner">
+                        <span class="count_top"><i class="fa fa-bus"></i> Bus Bookings</span>
+                        <div class="count">{% total_bus_bookings %}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="stats-count-inner">
+                        <span class="count_top"><i class="fa fa-bed"></i> Rental Bookings</span>
+                        <div class="count">{% total_apartment_bookings %}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="stats-count-inner">
+                        <span class="count_top"><i class="fa fa-globe"></i> Trip Bookings</span>
+                        <div class="count">{% total_trip_bookings %}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="stats-count-inner">
+                        <span class="count_top"><i class="fa fa-taxi"></i> Airport Booking</span>
+                        <div class="count">{% total_cab_bookings %}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="stats-count-inner">
+                        <span class="count_top"><i class="fa fa-cab"></i> Special Hire</span>
+                        <div class="count">{% total_hire_bookings %}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <div class="stats-count-inner">
+                        <span class="count_top"><i class="fa fa-commenting"></i> Feedback Received</span>
+                        <div class="count">#</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- /top tiles -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Zuula Tours and Travels'
+                    },
+                    xAxis: {
+                        categories: ['<strong>Bus</strong>', '<strong>Accommodation</strong>', '<strong>Trip</strong>', '<strong>Airport Taxi</strong>', '<strong>Special Hire</strong>']
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'All Statistics'
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                        shared: false
+                    },
+                    series: [
+                        {
+                            name: 'Zuula Tours and Travels',
+                            data: [
+                                {% total_bus_bookings %}, {% total_apartment_bookings %}, {% total_trip_bookings %}, {% total_cab_bookings %}, {% total_hire_bookings %}
+                            ]
+                        }
+                        ,
+
+                    ],
+
+                    credits: {
+                        enabled: false
+                    }
+                })
+                ;
+            });
+
+        </script>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel tile overflow_hidden">
+                    <div class="x_title">
+                        <h2 class="head-title">Zuula Tours & Travels Statistics</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="container" style=" width: 99%; vertical-align: top; height:250px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}

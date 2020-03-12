@@ -1,0 +1,77 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Taxi</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Taxis</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for taxi in taxis %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if taxi.image %}
+                                    <img src="{{ taxi.image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title">{{ taxi.number }}</h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ taxi.driver }} (Taxi Driver)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-phone"></i></span>{{ taxi.driver.contact }}
+                                        (Driver Contact)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-sort-numeric-asc"></i></span>{{ taxi.total_seats }}
+                                        (Taxi Capacity)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-taxi"></i></span>{{ taxi.taxi_type }} (Taxi Type)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ taxi.fare_ratio|intcomma }} (Taxi Fare
+                                        Ratio)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ taxi.source }} (Taxi Area of Operation)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'book_taxi' taxi.pk %}"
+                                       class="link glbscl-link-btn hvr-bs btn-success">Book Taxi</a>
+
+{#                                    <a href="{% url 'taxi_detail' taxi.pk %}"#}
+{#                                       class="link glbscl-link-btn hvr-bs btn-info">Read More</a>#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
+
+
+{#<div class="more text-center">#}
+{#    <a href="{% url 'book_taxi' taxi.pk %}"#}
+{#       class="link glbscl-link-btn hvr-bs btn-lg col-lg-6 col-md-8 col-sm-8 col-12 btn-success">#}
+{#        Book Taxi</a>#}
+{#</div>#}

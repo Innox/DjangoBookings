@@ -1,0 +1,119 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Confirm Booking</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Summary</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-8 col-12">
+                    <div class="single-event">
+                        <div class="img">
+                            {% if bus.image %}
+                                <img src="{{ bus.image.url }}" alt="">
+                            {% endif %}
+                        </div>
+
+                        <div class="content">
+                            <h2 class="title">Heading along {{ bus.route }},</h2>
+                            <div class="more text-center">
+                                Your booking is as follows;
+                            </div>
+                            <ul class="list">
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-clock-o"></i></span>{{ bus.departure_time }} (Departure Time)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-map-marker"></i></span>{{ bus.route.start_point }} (Starting Point)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-level-down"></i></span>{{ bus.route.via }} (Through)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-map-marker"></i></span>{{ bus.route.end_point }} (Destination)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-hourglass-2"></i></span>{{ bus.route.route_time }} (Route Time)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-dollar"></i></span>{{ bus.route.price }} (Route Fee)
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="row justify-content-center">
+                                <form method="POST" action="{% url 'reserve_bus' bus.pk route.pk %}">
+                                    {% csrf_token %}
+                                    <div class="form-group row">
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="first">Traveller First Name:</label>
+                                            <input class="form-control pull-left" name="firstname" id="first"
+                                                   type="text"
+                                                   required="First Name"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="first">Traveller Last Name:</label>
+                                            <input class="form-control pull-right" name="lastname" id="last" type="text"
+                                                   required="Last Name"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-2 col-md-8 col-sm-8 col-12">
+                                            <label for="travel_date">Journey Date:</label>
+                                            <input class="form-control pull-left" name="travel_date" id="travel_date"
+                                                   type="text"
+                                                   required="When will you be travelling?"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="more text-center">
+                                        <button type="submit" href="#"
+                                                class="link glbscl-link-btn hvr-bs btn btn-success">Confirm Booking
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <link href="{% static 'vendors/datepicker/datepicker.css' %}" rel="stylesheet">
+            <script src="{% static 'vendors/datepicker/datepicker.js' %}"></script>
+
+            <script type="text/javascript">
+                $('.travel_date').datepicker({format: 'yyyy-mm-dd'});
+
+                $(document).ready(function () {
+                    $('#assignment-table').DataTable({
+                        dom: 'Bfrtip',
+                        iDisplayLength: 15,
+                        buttons: [
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdfHtml5',
+                            'print',
+                            'pageLength'
+                        ],
+                        search: true,
+                        responsive: true
+                    });
+                });
+            </script>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+</body>
+

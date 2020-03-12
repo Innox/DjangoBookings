@@ -1,0 +1,148 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Accommodation Details</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="#">Accommodation</a></li>
+                <li><a href="javascript:void(0);">Accommodation Detail</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="page-event-details">
+                        <div class="banner">
+                            {% if accommodation.image %}
+                                <img src="{{ accommodation.image.url }}"
+                                     alt="">
+                            {% endif %}
+                        </div>
+                        <h2 class="title">{{ accommodation.name }}</h2>
+                        <ul class="event-meta">
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-user"></i></span> {{ accommodation.address }}
+                                (Address)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-calendar"></i></span> {{ accommodation.lowest_charge }}
+                                (Starting Fee)
+                            </li>
+                        </ul>
+                        <br>
+                        <h2 class="info-title">Accommodation Info :</h2>
+                        <div class="text">{{ accommodation.note|linebreaks }}</div>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">Our Available Rooms</h2>
+                            <ul class="widget-event">
+                                {% if rooms %}
+                                    {% for room in rooms %}
+                                        <li>
+                                            <a href="">
+                                                {% if room.type.image %}
+                                                    <span class="img">
+                                                <img src="{{ room.type.image.url }}"
+                                                     alt="">
+                                                 </span>
+                                                {% endif %}
+
+
+                                                <span class="content">
+                                                <span class="title">{{ room.type }}</span>
+                                                <span class="event-meta">
+                                                    <span class="info"><span class="icon"><i
+                                                            class="fa fa-dollar"></i></span> {{ room.price }}</span>
+                                                    <span class="info"><span class="icon"><i
+                                                            class="fa fa-users"></i></span> {{ room.capacity }}</span>
+                                                   <span class="info"><span class="icon"><i
+                                                           class="fa fa-bed"></i></span> {{ room.spaceleft }}</span>
+                                                 <span class="info"><span class="icon"><i class="fa fa-commenting"></i>
+                                                 </span>
+                                                     {{ room.review }}</span>
+                                                </span>
+                                            </span>
+                                                <span class="content">
+                                            <div style="text-align:center;">
+                                                {% if room.type.roomService == True %}
+                                                    <div style="display:inline-block;margin:2px;"><i
+                                                            class="material-icons">room_service</i>
+
+                                                    </div>
+                                                {% endif %}
+                                                {% if room.type.wifi == True %}
+                                                    <div style="display:inline-block;margin:2px;"><i
+                                                            class="material-icons" style="margin:10px;">wifi</i>
+
+                                                    </div>
+                                                {% endif %}
+                                                {% if room.type.freeBreakfast == True %}
+                                                    <div style="display:inline-block;margin:2px;"><i
+                                                            class="material-icons"
+                                                            style="margin:10px;">free_breakfast</i>
+
+                                                    </div>
+                                                {% endif %}
+                                                {% if room.type.minibar == True %}
+                                                    <div style="display:inline-block;margin:2px;"><i
+                                                            class="material-icons" style="margin:10px;">local_bar</i>
+
+                                                    </div>
+                                                {% endif %}
+                                                {% if room.type.laundaryService == True %}
+                                                    <div style="display:inline-block;margin:2px;"><i
+                                                            class="material-icons" style="margin:10px;">local_laundry_service</i>
+
+                                                    </div>
+                                                {% endif %}
+                                                {% if room.type.airConditioning == True %}
+                                                    <div style="display:inline-block;margin:2px;"><i
+                                                            class="material-icons" style="margin:10px;">airplay</i>
+
+                                                    </div>
+                                                {% endif %}
+                                                {% if room.type.poolFacility == True %}
+                                                    <div style="display:inline-block;margin:2px;"><i
+                                                            class="material-icons" style="margin:10px;">pool</i>
+
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </span>
+                                                {% if room.spaceleft > 0 %}
+                                                    <div style="text-align:center;margin-bottom:10px;">
+                                                        <a href="{% url 'book_room' accommodation.pk room.pk %}"
+                                                           class="btn btn-info btn-lg">Book Room
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                            </a>
+
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

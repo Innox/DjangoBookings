@@ -1,0 +1,59 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Route</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Routes</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for route in routes %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="content">
+                                <h2 class="title"><a
+                                        href="{{ route.get_absolute_url }}">{{ route.start_point }}
+                                    - {{ route.end_point }}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ route.start_point }} (Starting Point)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ route.via }} (Via)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ route.end_point }} (Destination)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ route.price | intcomma }}
+                                        (Route Fee)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-hourglass"></i></span>{{ route.route_time }}
+                                        (Route Time)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'route_detail' route.pk %}"
+                                       class="link glbscl-link-btn hvr-bs">View More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+</body>

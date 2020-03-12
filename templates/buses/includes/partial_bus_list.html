@@ -1,0 +1,33 @@
+{% for bus in buses %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ bus.number }}</td>
+        <td>{{ bus.route }}</td>
+        <td>{{ bus.total_seats }}</td>
+        <td>{{ bus.departure_time }}</td>
+        <td>
+            {% if bus.image %}
+                <img src="{{ bus.image.url }}"
+                     alt="" width="80"/>
+            {% endif %}
+        </td>
+        <td>
+            <button type="button"
+                    class="btn btn-warning btn-sm js-view-bus"
+                    data-url="{% url 'bus_view' bus.pk %}">
+                <span class="glyphicon glyphicon-eye-open"></span> View
+            </button>
+            <a href="{% url 'bus_update' bus.pk %}" class="btn btn-info btn-sm">
+                <span class="fa fa-pencil-square-o"></span> Edit</a>
+            <button type="button"
+                    class="btn btn-danger btn-sm js-delete-bus"
+                    data-url="{% url 'bus_delete' bus.id %}">
+                <span class="glyphicon glyphicon-trash"></span> Delete
+            </button>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Bus</td>
+    </tr>
+{% endfor %}

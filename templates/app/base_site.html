@@ -1,0 +1,269 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+        {% block meta %}
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <!-- Meta, title, CSS, favicons, etc. -->
+            <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+            <meta charset="utf-8">
+            <meta charset="ISO-8859-15">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock meta %}
+
+        <title>Zuula Tours & Travels | {% block title %}{% endblock %}</title>
+
+        {% block stylesheets %}
+            <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+            <link href=" {% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+            <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+            <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+            <link href="{% static 'vendors/datepicker/datepicker.css' %}" rel="stylesheet">
+            <link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+            <link href="{% static 'vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+            <link href="{% static 'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}"
+                  rel="stylesheet">
+            <link href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
+            <script src="{% static 'js/jquery.min.js' %}"></script>
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
+            <link rel="stylesheet" href="{% static 'css/messages.css' %}"/>
+            <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}"/>
+            <script type="text/javascript" src="{% static 'js/toastr.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/jquery.validate.js' %}"></script>
+        {% endblock stylesheets %}
+        <link href="{% static 'build/css/custom.css' %}" rel="stylesheet">
+        <link href="{% static 'css/theme/black.css' %}" rel="stylesheet">
+        <style>
+            .modal-header {
+                background-color: #73879C;
+                color: #FFF;
+                font-size: 24px;
+                font-weight: 300
+            }
+        </style>
+    {% endblock head %}
+</head>
+
+<body class="{% block body_class %}nav-md {% endblock body_class %}">
+
+
+{% block body %}
+
+    <div class="fakeLoader"></div>
+
+    <div class="container body">
+        <div class="main_container">
+            <style type="text/css">
+                .remove {
+                    font-weight: bold;
+                    font-size: 12px;
+                    cursor: pointer;
+                    float: right;
+                }
+
+                #message_div {
+                    padding: 10px 10px 10px 10px;
+                    margin-bottom: 10px;
+                }
+            </style>
+
+            {% block sidebar %}
+                <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+                    {% include "app/sidebar.html" %}
+                </div>
+            {% endblock sidebar %}
+
+            {% block top_navigation %}
+                <div class="top_nav">
+                    {% include "app/top_navigation.html" %}
+                </div>
+            {% endblock top_navigation %}
+
+
+            {% block content %}
+                <!-- {{ content }} -->
+            {% endblock content %}
+
+            {% block footer %}
+                <footer class="footer no-print">
+                    {% include "app/footer.html" %}
+                </footer>
+            {% endblock footer %}
+        </div>
+    </div>
+
+
+
+    {% block javascripts %}
+        <!-- jQuery -->
+        <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+        <!-- Highlights -->
+        <script src="{% static 'vendors/Highcharts/code/highcharts.js' %}"></script>
+        <script src="{% static 'vendors/Highcharts/code/highcharts-3d.js' %}"></script>
+        <script src="{% static 'vendors/Highcharts/code/modules/exporting.js' %}"></script>
+        <!-- Popper -->
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <!-- Loader -->
+        <link rel="stylesheet" type="text/css" href="{% static 'vendors/loader/fakeLoader.min.css' %}">
+        <!-- Bootstrap -->
+        <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <!-- Page level plugins -->
+        <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+        <!-- sorting tables and search-->
+        <!-- Core plugin JavaScript-->
+        <script src="{% static 'vendors/jquery-easing/jquery.easing.min.js' %}"></script>
+        <!-- FastClick -->
+        <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+        <!-- NProgress -->
+        <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
+        <!-- iCheck -->
+        <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+        <!-- bootstrap-date picker -->
+        <script src="{% static 'vendors/datepicker/datepicker.js' %}"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+        <!-- bootstrap-wysiwyg -->
+        <script src="{% static 'vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js' %}"></script>
+        <script src="{% static 'vendors/jquery.hotkeys/jquery.hotkeys.js' %}"></script>
+        <script src="{% static 'vendors/google-code-prettify/src/prettify.js' %}"></script>
+        <!-- jQuery Tags Input -->
+        <script src="{% static 'vendors/jquery.tagsinput/src/jquery.tagsinput.js' %}"></script>
+        <!-- Switchery -->
+        <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
+        <!-- Select2 -->
+        <script src="{% static 'vendors/select2/dist/js/select2.full.min.js' %}"></script>
+        <!-- Parsley -->
+        <script src="{% static 'vendors/parsleyjs/dist/parsley.min.js' %}"></script>
+        <!-- Autosize -->
+        <script src="{% static 'vendors/autosize/dist/autosize.min.js' %}"></script>
+        <!-- jQuery autocomplete -->
+        <script src="{% static 'vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+        <!-- starrr -->
+        <script src="{% static 'vendors/starrr/dist/starrr.js' %}"></script>
+
+        <script src="{% static 'js/attendance.js' %}"></script>
+        <script src="{% static 'js/toastr.min.js' %}"></script>
+
+        <!--Toastr -->
+        <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
+        <script src="{% static 'js/fakeLoader.min.js' %}"></script>
+        <script>
+            $.fakeLoader();
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $(".dropdown-btn").click(function (e) {
+                    e.preventDefault();
+                    $('.dropdown').toggle();
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+
+            jQuery.extend(jQuery.validator.messages, {
+                required: "This field is required.",
+                email: "Please enter a valid email address.",
+                url: "Please enter a valid URL.",
+                date: "Please enter a valid date.",
+                number: "Please enter a valid number.",
+                digits: "Please enter only digits.",
+                equalTo: "Please enter the same value again.",
+                remote: "Please fix this field.",
+                dateISO: "Please enter a valid date (ISO).",
+                maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+                minlength: jQuery.validator.format("Please enter at least {0} characters."),
+                rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+                range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+                max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+                min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+            });
+
+            toastr.options = {
+                "closeButton": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "showDuration": "300",
+                "hideDuration": "300",
+                "timeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+
+            $(window).on('load', function () {
+                $('#preloader').fadeOut('slow', function () {
+                    $(this).remove();
+                });
+            });
+
+
+        </script>
+
+        <script>
+            $('.full-screen-handle').on('click', function (event) {
+                event.preventDefault();
+                if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+                    (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+                    if (document.documentElement.requestFullScreen) {
+                        document.documentElement.requestFullScreen();
+                    } else if (document.documentElement.mozRequestFullScreen) {
+                        document.documentElement.mozRequestFullScreen();
+                    } else if (document.documentElement.webkitRequestFullScreen) {
+                        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                } else {
+                    if (document.cancelFullScreen) {
+                        document.cancelFullScreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitCancelFullScreen) {
+                        document.webkitCancelFullScreen();
+                    }
+                }
+            });
+        </script>
+
+    {% endblock %}
+    <!-- Custom Theme Scripts -->
+    <script src="/static/build/js/custom.js"></script>
+
+{% endblock body %}
+
+{% block preloader %}
+{% endblock %}
+
+{% block extra_script %}
+{% endblock extra_script %}
+
+{% block javascript %}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock extra_js %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+
+{% block js %}
+{% endblock js %}
+</body>
+
+</html>

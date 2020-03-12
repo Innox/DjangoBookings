@@ -1,0 +1,16 @@
+{% extends "hotels/base.html" %}
+{% block title %}My hotel{% endblock %}
+{% block content %}
+    <h1>My hotel</h1>
+    {% for hotel in hotels %}
+        <h2>
+            <a href="{{ hotel.get_absolute_url }}">
+                {{ hotel.title }}
+            </a>
+        </h2>
+        <p class="date">
+            Published {{ hotel.publish }} by {{ hotel.address }}
+        </p>
+        {{ hotel.body|truncatewords:30|linebreaks }}
+    {% endfor %}
+{% endblock %}

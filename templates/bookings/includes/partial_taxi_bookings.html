@@ -1,0 +1,14 @@
+{% for taxi in taxis %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ taxi.traveller_first_name }} {{ taxi.traveller_last_name }}</td>
+        <td>{{ taxi.taxi.number }}</td>
+        <td>{{ taxi.travel_date }}</td>
+        <td>{{ taxi.travel_time }}</td>
+        <td>{{ taxi.created_at }}</td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Taxi</td>
+    </tr>
+{% endfor %}

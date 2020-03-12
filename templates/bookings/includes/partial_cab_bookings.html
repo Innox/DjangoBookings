@@ -1,0 +1,15 @@
+{% for cab in cabs %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ cab.traveller_first_name }} {{ cab.traveller_last_name }}</td>
+        <td>{{ cab.cab.number }}</td>
+        <td>{{ cab.travel_date }}</td>
+        <td>{{ cab.travel_time }}</td>
+        <td>{{ cab.destination }}</td>
+        <td>{{ cab.created_at }}</td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Cab</td>
+    </tr>
+{% endfor %}

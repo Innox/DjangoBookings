@@ -1,0 +1,66 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">My Taxi Bookings ({{ bookings.count }})</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Summary</a></li>
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for booking in bookings %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if booking.taxi.image %}
+                                    <img src="{{ booking.taxi.image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title">Booking {{ forloop.counter }}</h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user-md"></i></span>{{ booking.taxi.driver }} (Taxi Driver)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ booking.traveller_first_name }} {{ booking.traveller_last_name }} (Passenger)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ booking.travel_date }} (Departure Date)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-clock-o"></i></span>{{ booking.travel_time }} (Departure Time)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-sort-numeric-asc"></i></span>{{ booking.taxi.total_seats }} (Taxi Capacity)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ booking.taxi.fare_ratio|intcomma }}
+                                        (Taxi Fare Ratio)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'cancel_taxi_booking' booking.id %}"
+                                       class="btn btn-danger">Cancel Booking</a>
+
+                                    <a href="{% url 'generate_taxi_pdf' booking.id %}"
+                                       class="btn btn-success">Get PDF</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends 'home/base.html' %}
+{% load static %}
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Contact Us</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="javascript:void(0);">Contact Us</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="container text-center">
+            <style type="text/css">
+                .remove {
+                    font-weight: bold;
+                    font-size: 12px;
+                    cursor: pointer;
+                    float: right;
+                }
+
+                #message_div {
+                    padding: 6px 10px 6px 10px;
+                    margin-bottom: 10px;
+                    margin-top: 20px;
+                    background: #01b5ef;
+                    font-weight: bold;
+                    text-align: left;
+                    border-radius: 5px;
+                    color: #fff;
+                }
+            </style>
+
+
+            <script type="text/javascript">
+                $(function () {
+                    $('#message_div').delay(10000).fadeOut();
+                    $('.remove').click(function () {
+                        $('#message_div').hide();
+                    });
+                });
+            </script>
+        </div>
+    </section>
+
+    <section class="page-contact-area">
+        <div class="container">
+            <div id="mymap"></div>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="contact-form-area">
+                        <h2 class="contact-page-title">Contact Us</h2>
+
+                        <form action="."
+                              method="post"
+                              id="contact_us"
+                              name="contact_us">
+                            {% csrf_token %}
+
+                            {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        <li{% if message.tags %}
+                                            class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="name" id="name" required="required"
+                                               placeholder="Name *">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="email" name="email" id="email" required="required"
+                                               placeholder="Email *">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="phone" id="phone" placeholder="Phone">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="contact-input-box">
+                                        <input type="text" name="subject" id="subject" placeholder="Subject">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="contact-input-box">
+                                    <textarea name="message" id="message" required="required"
+                                              placeholder="Message *"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="contact-input-box text-right">
+                                        <input class="glbscl-link-btn hvr-bs" type="submit" name="submit" id="submit"
+                                               value="Submit">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <h2 class="contact-page-title">Get in Touch</h2>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="single-contact-info">
+                                <span class="icon"><i class="fa fa-map-marker"></i></span>
+                                <p class="info">
+                                    Entebbe - Wakiso
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="single-contact-info">
+                                <span class="icon"><i class="fa fa-envelope"></i></span>
+                                <a class="info" href="mailto:#">Email: info@zulatravels.com</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="single-contact-info">
+                                <span class="icon"><i class="fa fa-phone"></i></span>
+                                <a class="info" href="tel:+256-774-488956">Phone: +256-774-488956</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="single-contact-info">
+                                <span class="icon"><i class="fa fa-fax"></i></span>
+                                <p class="info">Fax: +256-774-488956</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        function myMap() {
+            var myCenter = new google.maps.LatLng(0.17250, 32.51833);
+            var mapCanvas = document.getElementById("mymap");
+            var mapOptions = {center: myCenter, zoom: 16};
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            var marker = new google.maps.Marker({position: myCenter});
+            marker.setMap(map);
+
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h3 id="firstHeading" class="firstHeading">Zuula Travels</h3>' +
+                '<div id="bodyContent">' +
+                '<p><b>Address:</b> Entebbe-Wakiso <br/>' +
+                '<b>Phone:</b> +256-774-488956 <br/> ' +
+                '<b>Email:</b> info@zulatravels.com <br/>' +
+                '<b>Fax:</b> +256-774-488956 <br/>' +
+                '</p>' +
+                '</div>' +
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            infowindow.open(map, marker);
+        }
+
+        $('#contact_us').validate();
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=myMap"></script>
+
+    <style type="text/css">
+        label.error {
+            color: red;
+        }
+    </style>        <!-- /page content -->
+
+
+{% endblock %}
+
+</body>
+

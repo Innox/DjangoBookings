@@ -1,0 +1,107 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Route Details</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="#">Route</a></li>
+                <li><a href="javascript:void(0);">Route Detail</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="page-event-details">
+                        <h2 class="title">{{ route.start_point }}-{{ route.end_point }}</h2>
+                        <ul class="event-meta">
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-map-marker"></i></span> {{ route.start_point }}
+                                (Starting Point)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-level-down"></i></span> {{ route.via }}
+                                (Through)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-map-marker"></i></span> {{ route.end_point }}
+                                (Destination)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-hourglass"></i></span> {{ route.route_time }}
+                                (Route Time)
+                            </li>
+                            <li class="info"><span class="icon"><i
+                                    class="fa fa-dollar"></i></span> {{ route.price }}
+                                (Route Fee)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h2 class="sidebar-title">Our Available Buses</h2>
+                            <ul class="widget-event">
+                                {% if buses %}
+                                    {% for bus in buses %}
+                                        <li>
+                                            <a href="">
+                                                {% if bus.image %}
+                                                    <span class="img">
+                                                <img src="{{ bus.image.url }}"
+                                                     alt="">
+                                                 </span>
+                                                {% endif %}
+
+                                                <span class="content">
+                                                <span class="title">{{ bus.route }}</span>
+                                                <span class="event-meta">
+                                                    <span class="info"><span
+                                                            class="icon"><i
+                                                            class="fa fa-sort-numeric-asc"></i></span> {{ bus.number }}</span>
+                                                    <span class="info"><span class="icon"><i
+                                                            class="fa fa fa-clock-o"></i></span> {{ bus.departure_time }}</span>
+                                                    <span class="info"><span class="icon"><i
+                                                            class="fa fa-users"></i></span> {{ bus.total_seats }}</span>
+                                                </span>
+                                            </span>
+                                                <span class="content">
+                                                    <div style="text-align:center;">
+                                                        {% if bus.ac == True %}
+                                                            <div style="display:inline-block;margin:2px;"><i
+                                                                    class="material-icons" style="margin:10px;">airplay</i>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </span>
+                                                <div style="text-align:center;margin-bottom:10px;">
+                                                    <a href="{% url 'book_bus' route.pk bus.pk %}"
+                                                       class="btn btn-info btn-lg">Book Bus
+                                                    </a>
+                                                </div>
+                                            </a>
+
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

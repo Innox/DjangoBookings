@@ -1,0 +1,45 @@
+{% extends 'home/base.html' %}
+{% load static %}
+<body>
+
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">About Us</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href="javascript:void(0);">About Us</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="top-banner-area">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="top-banner-content">
+                        <h3 class="intro">Welcome to</h3>
+                        <h2 class="title">Zuula Tours & Travels </h2>
+                        <div class="text">
+                            {{ about.about }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+                    <div class="top-banner-img">
+                        {% if about.about_image %}
+                            <img src="{{ about.about_image.url }}" alt="">
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

@@ -1,0 +1,109 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Confirm Booking</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Summary</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-8 col-12">
+                    <div class="single-event">
+                        <div class="img">
+                            {% if cab.image %}
+                                <img src="{{ cab.image.url }}" alt="">
+                            {% endif %}
+                        </div>
+
+                        <div class="content">
+                            <h2 class="title">Order for Cab {{ cab.number }},</h2>
+                            <div class="more text-center">
+                                Your summary is as follows;
+                            </div>
+                            <ul class="list">
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-user"></i></span>{{ cab.driver }} (Cab Driver)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-phone"></i></span>{{ cab.driver.contact }} (Driver Contact)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-cab"></i></span>{{ cab.taxi_type }} (Cab Type)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-sort-numeric-asc"></i></span>{{ cab.total_seats }} (Cab Capacity)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-dollar"></i></span>{{ cab.fare_ratio|intcomma }} (Cab Fare Ratio)
+                                </li>
+
+                            </ul>
+                            <br>
+                            <div class="row justify-content-center">
+                                <form method="POST"
+                                      action="{% url 'reserve_cab_slot' cab.pk %}">
+                                    {% csrf_token %}
+                                    <div class="form-group row">
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="first">Traveller First Name:</label>
+                                            <input class="form-control pull-left" name="firstname" id="first"
+                                                   type="text"
+                                                   required="First Name"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="first">Traveller Last Name:</label>
+                                            <input class="form-control pull-right" name="lastname" id="last" type="text"
+                                                   required="Last Name"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group row">
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="travel_date">Travel Date:</label>
+                                            <input class="form-control pull-left" name="travel_date" id="travel_date"
+                                                   type="text"
+                                                   required="Travel Date"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="travel_time">Travel Time:</label>
+                                            <input class="form-control pull-right" name="travel_time" id="travel_time"
+                                                   type="text" required="Travel Time"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group row">
+                                        <div class="offset-2 col-md-8 col-sm-8 col-12">
+                                            <label for="destination">Destination:</label>
+                                            <input class="form-control pull-left" name="destination" id="destination"
+                                                   type="text"
+                                                   required="Your Destination"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="more text-center">
+                                        <button type="submit" href="#"
+                                                class="link glbscl-link-btn hvr-bs btn btn-success">Confirm Booking
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+</body>
+

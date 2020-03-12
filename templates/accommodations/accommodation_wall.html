@@ -1,0 +1,54 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Accommodation</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Accommodations</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for accommodation in accommodations %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if accommodation.image %}
+                                    <img src="{{ accommodation.image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title"><a
+                                        href="{{ accommodation.get_absolute_url }}">{{ accommodation.name }}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ accommodation.address }} (Address)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ accommodation.lowest_charge | intcomma }}
+                                        (Starting Fee)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'accommodation_detail' accommodation.pk %}"
+                                       class="link glbscl-link-btn hvr-bs">View More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+</body>

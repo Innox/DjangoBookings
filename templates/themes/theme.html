@@ -1,0 +1,93 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Theme {% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title"><i class="fa fa-cubes"></i><small> Manage Theme</small></h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="row">
+
+                            {#                        style="float:left; clear:both;"#}
+
+                            {% for theme in themes %}
+                                {% if forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}
+                                    <div class="col-md-3 col-sm-3 col-xs-6" style="float:left; clear:both;">
+                                        <div class="theme-box">
+                                            {% if theme.theme_image %}
+                                                <img src="{{ theme.theme_image.url }}"
+                                                     alt=""/>
+                                            {% endif %}
+
+                                            {% if theme.is_active == "Yes" %}
+                                                <button class="btn btn-success"
+                                                        style="background: {{ theme.colour }};
+                                                                border: 1px solid {{ theme.colour }};">
+                                                    <span class="glyphicon glyphicon-ok"></span> Active
+                                                </button>
+
+                                            {% else %}
+                                                <a href="{% url 'theme_activate' theme.pk %}">
+                                                <button class="btn btn-success"
+                                                        style="background: {{ theme.colour }};
+                                                                border: 1px solid {{ theme.colour }};">Activate
+                                                </button>
+                                            {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div class="theme-box">
+                                            {% if theme.theme_image %}
+                                                <img src="{{ theme.theme_image.url }}"
+                                                     alt=""/>
+                                            {% endif %}
+
+                                            {% if theme.is_active == "Yes" %}
+                                                <button class="btn btn-success"
+                                                        style="background: {{ theme.colour }};
+                                                                border: 1px solid {{ theme.colour }};">
+                                                    <span class="glyphicon glyphicon-ok"></span> Active
+                                                </button>
+
+                                            {% else %}
+                                                <a href="{% url 'theme_activate' theme.pk %}">
+                                                <button class="btn btn-success"
+                                                        style="background: {{ theme.colour }};
+                                                                border: 1px solid {{ theme.colour }};">Activate
+                                                </button>
+                                            {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /page content -->
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}

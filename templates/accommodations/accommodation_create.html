@@ -1,0 +1,232 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Accommodation {% endblock title %}
+
+{% load static i18n crispy_forms_tags %}
+
+{% block javascript %}
+    <script src="{% static 'custom/accommodations.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title"><i class="fa fa fa-home"></i><small>
+                            Manage Accommodation</small>
+                        </h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation"><a href="{% url 'accommodation_list' %}"><i
+                                        class="fa fa-list-ol"></i> Accommodation List</a>
+                                </li>
+                                <li role="presentation" class="active"><a href="{% url 'accommodation_create' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Accommodation</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_accommodation_list">
+                                    <div class="x_content">
+
+                                        <form action="{% url 'accommodation_create' %}" name="add"
+                                              id="add" class="form-horizontal form-label-left"
+                                              enctype="multipart/form-data" method="post"
+                                              accept-charset="utf-8">
+                                            {% csrf_token %}
+
+                                            {#                                            {% crispy form %}#}
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="name">Name <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="name"
+                                                           id="name" value=""
+                                                           placeholder="Accommodation Title"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="code">Code <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="code"
+                                                           id="code" value=""
+                                                           placeholder="Accommodation Code"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="phone">Phone <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="phone"
+                                                           id="phone" value=""
+                                                           placeholder="Accommodation Tel"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Image </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="btn btn-default btn-file">
+                                                        <i class="fa fa-paperclip"></i> Upload <input
+                                                            class="form-control col-md-7 col-xs-12" name="image"
+                                                            id="image" type="file">
+                                                    </div>
+                                                    <div class="text-info">Image file format: .jpg, .jpeg, .png
+                                                        or .gif
+                                                    </div>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="lowest_charge">Starting Fee <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="lowest_charge"
+                                                           id="lowest_charge" value=""
+                                                           placeholder="Starting Fee"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="address">Address <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="address"
+                                                           id="address" value=""
+                                                           placeholder="Address"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="note">Note</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <textarea class="form-control col-md-7 col-xs-12" name="note"
+                                                                  id="note" placeholder="Note"></textarea>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="Is_View_on_Web">Is View on Web?</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="Is_View_on_Web" id="Is_View_on_Web">
+                                                        <option value="">--Select--</option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-md-offset-3">
+                                                    <a href="{% url 'accommodation_list' %}"
+                                                       class="btn btn-primary">Cancel</a>
+                                                    <button id="send" type="submit" class="btn btn-success">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <link href="{% static 'vendors/editor/jquery-te-1.4.0.css' %}" rel="stylesheet">
+        <script type="text/javascript" src="{% static 'vendors/editor/jquery-te-1.4.0.js' %}"></script>
+
+        <script type="text/javascript">
+            $('#note').jqte();
+        </script>
+
+        <link href="{% static 'vendors/datepicker/datepicker.css' %}" rel="stylesheet">
+        <script src="{% static 'vendors/datepicker/datepicker.js' %}"></script>
+
+        <script type="text/javascript">
+            $('#from_date').datepicker({format: 'yyyy-mm-dd'});
+            $('#to_date').datepicker({format: 'yyyy-mm-dd'});
+
+            $(document).ready(function () {
+                $('#accommodation-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+

@@ -1,0 +1,263 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Trip {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'schools/js/events.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title"><i class="fa fa-globe"></i><small> Manage Trip</small>
+                        </h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation"><a href="{% url 'event_list' %}"><i
+                                        class="fa fa-list-ol"></i> Trip List</a>
+                                </li>
+                                <li role="presentation"><a href="{% url 'event_create' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Trip</a>
+                                </li>
+                                <li role="presentation" class="active"><a href="{% url 'event_update' event.pk %}"><i
+                                        class="fa fa-pencil-square-o"></i> Edit Trip</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_event_list">
+                                    <div class="x_content">
+
+                                        <form action="{% url 'event_update' event.pk %}" name="edit"
+                                              id="edit" class="form-horizontal form-label-left"
+                                              enctype="multipart/form-data" method="post"
+                                              accept-charset="utf-8">
+                                            {% csrf_token %}
+
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="event_title">Trip Title <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" name="event_title"
+                                                           id="event_title" value="{{ event.event_title }}"
+                                                           placeholder="Event Title" required="required"
+                                                           type="text"
+                                                           autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="price">Trip Price <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" name="price"
+                                                           id="price" value="{{ event.price }}" placeholder="Event Price"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="event_for">Trip for <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="event_for"
+                                                            id="event_for" required="required">
+                                                        <option value="{{ event.event_for.pk }}">{{ event.event_for }}</option>
+                                                        <option value="0">All</option>
+                                                        {% for role in roles %}
+                                                            <option value="{{ role.pk }}">{{ role.role_name }}</option>
+                                                        {% endfor %}
+
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="event_place">Trip Place <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="event_place" id="event_place"
+                                                           value="{{ event.event_place }}"
+                                                           placeholder="Event Place"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="from_date">From Date <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="from_date"
+                                                           id="from_date" value="{{ event.from_date }}"
+                                                           placeholder="From Date" required="required"
+                                                           type="text"
+                                                           autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="to_date">To Date <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="to_date"
+                                                           id="to_date" value="{{ event.to_date }}"
+                                                           placeholder="To Date" required="required" type="text"
+                                                           autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Image </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <img src="{{ event.image.url }}"
+                                                         alt="" width="70"/><br/><br/>
+                                                    <div class="btn btn-default btn-file">
+                                                        <i class="fa fa-paperclip"></i> Upload <input
+                                                            class="form-control col-md-7 col-xs-12" name="image"
+                                                            id="image" type="file">
+                                                    </div>
+                                                    <div class="text-info">Image file format: .jpg, .jpeg, .png
+                                                        or
+                                                        .gif
+                                                    </div>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="note">Note</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <textarea class="form-control col-md-7 col-xs-12" name="note"
+                                                                  id="note" placeholder="Note">
+                                                            {{ event.note }}
+                                                        </textarea>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="Is_View_on_Web">Is View on Web?</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="Is_View_on_Web" id="Is_View_on_Web">
+                                                        <option value="{{ event.Is_View_on_Web }}">{{ event.Is_View_on_Web }}</option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value=No>No</option>
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-md-offset-3">
+                                                    <a href="{% url 'event_list' %}"
+                                                       class="btn btn-primary">Cancel</a>
+                                                    <button id="send" type="submit" class="btn btn-success">
+                                                        Update
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                                <!-- THE MODAL WE WILL BE USING -->
+                                <div class="modal fade" id="modal-event">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <link href="{% static 'vendors/editor/jquery-te-1.4.0.css' %}" rel="stylesheet">
+        <script type="text/javascript" src="{% static 'vendors/editor/jquery-te-1.4.0.js' %}"></script>
+
+        <script type="text/javascript">
+            $('#note').jqte();
+        </script>
+
+
+        <link href="{% static 'vendors/datepicker/datepicker.css' %}" rel="stylesheet">
+        <script src="{% static 'vendors/datepicker/datepicker.js' %}"></script>
+
+        <script type="text/javascript">
+            $('#from_date').datepicker({format: 'yyyy-mm-dd'});
+            $('#to_date').datepicker({format: 'yyyy-mm-dd'});
+
+            $(document).ready(function () {
+                $('#event-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+

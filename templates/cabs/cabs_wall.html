@@ -1,0 +1,72 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Airport Cab</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Cabs</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for cab in cabs %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if cab.image %}
+                                    <img src="{{ cab.image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title">{{ cab.number }}
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ cab.driver }} (Cab Driver)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-phone"></i></span>{{ cab.driver.contact }}
+                                        (Driver Contact)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-sort-numeric-asc"></i></span>{{ cab.total_seats }}
+                                        (Cab Capacity)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-cab"></i></span>{{ cab.taxi_type }} (Cab Type)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ cab.fare_ratio|intcomma }} (Cab Fare
+                                        Ratio)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ cab.source }} (Cab Area of Operation)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'book_cab' cab.pk %}"
+                                       class="link glbscl-link-btn hvr-bs btn-success">Book Cab</a>
+
+{#                                    <a href="{% url 'cab_detail' cab.pk %}"#}
+{#                                       class="link glbscl-link-btn hvr-bs btn-info">Read More</a>#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
+

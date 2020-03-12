@@ -1,0 +1,82 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Confirm Booking</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Summary</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-8 col-12">
+                    <div class="single-event">
+                        <div class="img">
+                            {% if trip.image %}
+                                <img src="{{ trip.image.url }}" alt="">
+                            {% endif %}
+                        </div>
+
+                        <div class="content">
+                            <h2 class="title">Trip to {{ trip.event_title }},</h2>
+                            <div class="more text-center">
+                                Your summary is as follows;
+                            </div>
+                            <ul class="list">
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-calendar"></i></span>{{ trip.from_date }} (Departure Date)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-calendar"></i></span>{{ trip.to_date }} (Return Date)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-map-marker"></i></span>{{ trip.event_place }} (Destination)
+                                </li>
+                                <li class="info"><span class="icon"><i
+                                        class="fa fa-dollar"></i></span>{{ trip.price|intcomma }} (Trip Fee)
+                                </li>
+
+                            </ul>
+                            <br>
+                            <div class="row justify-content-center">
+                                <form method="POST"
+                                      action="{% url 'reserve_trip_slot' trip.pk %}">
+                                    {% csrf_token %}
+                                    <div class="form-group row">
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="first">Tourist First Name:</label>
+                                            <input class="form-control pull-left" name="firstname" id="first"
+                                                   type="text"
+                                                   required="First Name"/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-12">
+                                            <label for="first">Tourist Last Name:</label>
+                                            <input class="form-control pull-right" name="lastname" id="last" type="text"
+                                                   required="Last Name"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="more text-center">
+                                        <button type="submit" href="#"
+                                           class="link glbscl-link-btn hvr-bs btn btn-success">Confirm Booking</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+</body>
+

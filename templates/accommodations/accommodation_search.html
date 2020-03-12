@@ -1,0 +1,87 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Accommodation</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Accommodations</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="apply-now-area">
+        <div class="container">
+            <div class="apply-now">
+                <div class="row">
+                    <div class="offset-1 col-md-9 col-sm-8 col-12">
+                        <form method="POST" action="" enctype="multipart/form-data" name="search"
+                              class="form-group form-horizontal"
+                              onsubmit="return validateForm()">
+                            {% csrf_token %}
+
+                            <div class="form-group item">
+                                <div class="form-group item form-group">
+                                    <label class="form-group-label text-muted" for="checkin">Enter a Destination,Hotel,
+                                        Landmark or address:</label>
+                                    <input class="form-control" type="text" name="searchterm" id="checkin"
+                                           placeholder="Search..">
+                                </div>
+                                <!-- Multi Date , Date Picker -->
+                                <div class="form-group item form-group">
+                                    <label class="text-muted" for="checkin">Please Select Your Check-In and Check-Out
+                                        dates:</label>
+                                    <input class="date form-control" type="text" name="daterange" id="checkin"
+                                           placeholder="Select Date..." required>
+                                </div>
+                                <div class="form-group item form-group">
+                                    <label class="text-muted" for="travelers">Travelers:</label>
+                                    <select name="numtravelers" class="form-control">
+                                        <option></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br/>
+                            <div class="text-center col-md-3 col-sm-4 col-12">
+                                <button href="#" type="submit"
+                                        class="text-center link glbscl-link-btn hvr-bs"
+                                        style="color: #007bff !important;">Search
+                                    Now
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block scripts %}
+    <script src="https://unpkg.com/flatpickr"></script>
+    <script>
+        flatpickr(".date", {
+            minDate: "today",
+            mode: "range",
+        });
+
+        function validateForm() {
+            var setdate = document.forms["search"]["daterange"].value;
+            if (setdate == "") {
+                alert("Date Must be Filled Out");
+                return false;
+            }
+        }
+    </script>
+{% endblock %}
+</body>

@@ -1,0 +1,16 @@
+{% for room in rooms %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ room.guest_first_name }} {{ room.guest_last_name }}</td>
+        <td>{{ room.accommodation }}</td>
+        <td>{{ room.room }}</td>
+        <td>{{ room.CheckIn }}</td>
+        <td>{{ room.CheckOut }}</td>
+        <td>{{ room.totalPrice }}</td>
+        <td>{{ room.created_at }}</td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Room</td>
+    </tr>
+{% endfor %}

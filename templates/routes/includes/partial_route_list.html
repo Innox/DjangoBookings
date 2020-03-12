@@ -1,0 +1,28 @@
+{% for route in routes %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ route.start_point }}</td>
+        <td>{{ route.end_point }}</td>
+        <td>{{ route.via }}</td>
+        <td>{{ route.route_time }}</td>
+        <td>{{ route.price }}</td>
+        <td>
+            <button type="button"
+                    class="btn btn-warning btn-sm js-view-route"
+                    data-url="{% url 'route_view' route.pk %}">
+                <span class="glyphicon glyphicon-eye-open"></span> View
+            </button>
+            <a href="{% url 'route_update' route.pk %}" class="btn btn-info btn-sm">
+                <span class="fa fa-pencil-square-o"></span> Edit</a>
+            <button type="button"
+                    class="btn btn-danger btn-sm js-delete-route"
+                    data-url="{% url 'route_delete' route.id %}">
+                <span class="glyphicon glyphicon-trash"></span> Delete
+            </button>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Route</td>
+    </tr>
+{% endfor %}

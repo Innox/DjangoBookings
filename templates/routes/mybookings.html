@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+{% block content %}
+
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">My Bus Bookings ({{ bookings.count }})</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Summary</a></li>
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for booking in bookings %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if booking.bus.image %}
+                                    <img src="{{ booking.bus.image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title">{{ booking.bus.route }}</h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ booking.traveller_first_name }} {{ booking.traveller_last_name }}
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-sort-numeric-asc"></i></span>{{ booking.bus.number }} (Bus
+                                        Number)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-clock-o"></i></span>{{ booking.bus.departure_time }} (Departure
+                                        Time)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ booking.route.start_point }}
+                                        (Starting Point)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-level-down"></i></span>{{ booking.route.via }} (Through)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ booking.route.end_point }}
+                                        (Destination)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-hourglass-2"></i></span>{{ booking.route.route_time }} (Route
+                                        Time)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ booking.bus.route.price }} (Route Fee)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ booking.travel_date }} (Journey Date)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'cancel_bus_booking' booking.id %}"
+                                       class="btn btn-danger">Cancel Booking</a>
+
+                                    <a href="{% url 'generate_bus_pdf' booking.id %}"
+                                       class="btn btn-success">Get PDF</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

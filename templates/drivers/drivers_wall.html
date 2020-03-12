@@ -1,0 +1,75 @@
+{% extends 'home/base.html' %}
+{% load static humanize %}
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Trip</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Trips</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="page-event-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for event in events %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if event.image %}
+                                    <img src="{{ event.image.url }}" alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title"><a href="{{ event.get_absolute_url }}">{{ event.event_title }}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ event.event_for }} (Event
+                                        for)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ event.from_date }}
+                                        (Start Date)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ event.to_date }}
+                                        (End Date)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ event.event_place }}
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ event.price|intcomma }}
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="{% url 'book_trip' event.pk %}"
+                                       class="link glbscl-link-btn hvr-bs btn-success">Book Trip</a>
+
+                                    <a href="{% url 'event_detail' event.pk %}"
+                                       class="link glbscl-link-btn hvr-bs btn-info">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>
+
+
+{#<div class="more text-center">#}
+{#    <a href="{% url 'book_trip' trip.pk %}"#}
+{#       class="link glbscl-link-btn hvr-bs btn-lg col-lg-6 col-md-8 col-sm-8 col-12 btn-success">#}
+{#        Book Trip</a>#}
+{#</div>#}

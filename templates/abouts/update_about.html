@@ -1,0 +1,156 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} About {% endblock title %}
+
+{% load static i18n %}
+
+{% block javascript %}
+    <script src="{% static 'schools/js/about.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><i class="fa fa-desktop"></i><small> Manage About</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content quick-link">
+                        <span>Quick Link:</span>
+                        <a href="#">Manage Frontend</a>
+                        | <a href="#">Manage Slider</a>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation"><a href="{% url 'about_list' %}"><i
+                                        class="fa fa-list-ol"></i> About School List</a>
+                                </li>
+{#                                <li role="presentation"><a href="{% url 'about_create' %}"><i#}
+{#                                        class="fa fa-plus-square-o"></i> Add School About</a>#}
+{#                                </li>#}
+                                <li role="presentation" class="active"><a href="{% url 'about_update' about.pk %}"><i
+                                        class="fa fa-pencil-square-o"></i> Edit About</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+                            <div class="row">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab_about_list">
+                                        <div class="x_content">
+
+                                            <form action="{% url 'about_update' about.pk %}"
+                                                  name="edit" id="edit" class="form-horizontal form-label-left"
+                                                  enctype="multipart/form-data" method="post"
+                                                  novalidate accept-charset="utf-8">{% csrf_token %}
+
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                           for="about_text">About School</label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <textarea class="form-control col-md-7 col-xs-12"
+                                                                      name="about" id="about"
+                                                                      placeholder="About School">
+                                                                {{ about.about }}
+                                                                .</textarea>
+                                                        <div class="help-block"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">About
+                                                        Image</label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <img src="{{ about.about_image.url }}"
+                                                             alt="" width="250"/><br/><br/>
+                                                        <div class="btn btn-default btn-file">
+                                                            <i class="fa fa-paperclip"></i> Upload <input
+                                                                class="form-control col-md-7 col-xs-12"
+                                                                name="about_image" id="about_image" type="file">
+                                                        </div>
+                                                        <div class="text-info">Image file format: .jpg, .jpeg, .png
+                                                            or .gif
+                                                        </div>
+                                                        <div class="help-block"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-6 col-md-offset-3">
+                                                        <button id="send" type="submit" class="btn btn-success">
+                                                            Update
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- THE MODAL WE WILL BE USING -->
+                                <div class="modal fade" id="modal-about">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#about-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+            $('#about').jqte();
+        </script>
+
+        <style type="text/css">
+            .jqte_editor {
+                height: 250px;
+            }
+        </style>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+

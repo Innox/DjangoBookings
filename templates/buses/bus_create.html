@@ -1,0 +1,201 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Bus {% endblock title %}
+
+{% load static i18n crispy_forms_tags %}
+
+{% block javascript %}
+    <script src="{% static 'custom/buses.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h3 class="head-title"><i class="fa fa-bus"></i><small>
+                            Manage Bus</small>
+                        </h3>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="" data-example-id="togglable-tabs">
+
+                            <ul class="nav nav-tabs bordered">
+                                <li role="presentation"><a href="{% url 'bus_list' %}"><i
+                                        class="fa fa-list-ol"></i> Bus List</a>
+                                </li>
+                                <li role="presentation" class="active"><a href="{% url 'bus_create' %}"><i
+                                        class="fa fa-plus-square-o"></i> Add Bus</a>
+                                </li>
+                            </ul>
+                            <br/>
+
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab_bus_list">
+                                    <div class="x_content">
+
+                                        <form action="{% url 'bus_create' %}" name="add"
+                                              id="add" class="form-horizontal form-label-left"
+                                              enctype="multipart/form-data" method="post"
+                                              accept-charset="utf-8">
+                                            {% csrf_token %}
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="number">Bus Number <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="number"
+                                                           id="number" value=""
+                                                           placeholder="Bus Number"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="route">Bus Route <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="route"
+                                                            id="route" required="required">
+                                                        <option value="">--Select--</option>
+                                                        {% for route in routes %}
+                                                            <option value="{{ route.pk }}">{{ route.complete_route }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="total_seats">Total Seats <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="total_seats"
+                                                           id="total_seats" value=""
+                                                           placeholder="Total Seats"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="departure_time">Departure Time <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12"
+                                                           name="departure_time"
+                                                           id="departure_time" value=""
+                                                           placeholder="Departure Time"
+                                                           required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Bus
+                                                    Image </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="btn btn-default btn-file">
+                                                        <i class="fa fa-paperclip"></i> Upload <input
+                                                            class="form-control col-md-7 col-xs-12" name="image"
+                                                            id="image" type="file">
+                                                    </div>
+                                                    <div class="text-info">Image file format: .jpg, .jpeg, .png
+                                                        or .gif
+                                                    </div>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="Is_View_on_Web">Is View on Web?</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control col-md-7 col-xs-12"
+                                                            name="Is_View_on_Web" id="Is_View_on_Web">
+                                                        <option value="">--Select--</option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-md-offset-3">
+                                                    <a href="{% url 'bus_list' %}"
+                                                       class="btn btn-primary">Cancel</a>
+                                                    <button id="send" type="submit" class="btn btn-success">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <link href="{% static 'vendors/timepicker/timepicker.css' %}" rel="stylesheet">
+        <script src="{% static 'vendors/timepicker/timepicker.js' %}"></script>
+
+        <script type="text/javascript">
+            $('.departure_time').timepicker({format: 'hh:mm:ss'});
+
+            $(document).ready(function () {
+                $('#bus-table').DataTable({
+                    dom: 'Bfrtip',
+                    iDisplayLength: 15,
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print',
+                        'pageLength'
+                    ],
+                    search: true,
+                    responsive: true
+                });
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}
+

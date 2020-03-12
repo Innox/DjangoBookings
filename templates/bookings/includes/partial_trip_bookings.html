@@ -1,0 +1,14 @@
+{% for trip in trips %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ trip.tourist_first_name }} {{ trip.tourist_last_name }}</td>
+        <td>{{ trip.trip }}</td>
+        <td>{{ trip.trip.from_date }}</td>
+        <td>{{ trip.trip.to_date }}</td>
+        <td>{{ trip.created_at }}</td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Trip</td>
+    </tr>
+{% endfor %}

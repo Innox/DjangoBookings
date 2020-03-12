@@ -1,0 +1,322 @@
+{% extends 'home/base.html' %}
+
+{% load static total_tags %}
+<body>
+
+{% block content %}
+    <!-- page content -->
+    <section class="slider-area owl-carousel">
+        {% for slider in sliders %}
+            <div class="single-slider">
+                <div class="img">
+                    {% if slider.slider_image %}
+                        <img src="{{ slider.slider_image.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <div class="container">
+                        <h3 class="intro animated">Welcome to</h3>
+                        <h2 class="title animated"> {{ slider.image_title }} </h2>
+                        <a class="link animated glbscl-link-btn hvr-bs"
+                           href="{% url 'event_wall' %}">View Packages</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+    <section class="top-banner-area">
+        <div class="container">
+            <div class="row">
+                {% for about in abouts %}
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="top-banner-content">
+                            <h3 class="intro">Welcome to</h3>
+                            <h2 class="title">
+                                Zuula Travels and Tours </h2>
+                            <p class="text">
+                                {{ about.about|truncatewords:80|linebreaks }}
+                            </p>
+
+                            <div class="more text-right">
+                                <a class="link glbscl-link-btn hvr-bs" href="{{ about.get_absolute_url }}">Read
+                                    More</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+                        <div class="top-banner-img">
+                            {% if about.about_image %}
+                                <img src="{{ about.about_image.url }}" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="facilities-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center">
+                        <h2 class="title">Our <span class="inner">Facilities</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-faclities">
+                        <div class="icon">
+                            <img src="{% static 'img/experience-teacher.png' %}"
+                                 alt="">
+                        </div>
+                        <h4 class="name">Travels and Tours</h4>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-faclities">
+                        <div class="icon">
+                            <img src="{% static 'img/library.png' %}" alt="">
+                        </div>
+                        <h4 class="name">Flight Tracking</h4>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-faclities">
+                        <div class="icon">
+                            <img src="{% static 'img/transport.png' %}" alt="">
+                        </div>
+                        <h4 class="name">Car Rental</h4>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-faclities">
+                        <div class="icon">
+                            <img src="{% static 'img/hostel.png' %}" alt="">
+                        </div>
+                        <h4 class="name">Accommodation</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="latest-event">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center">
+                        <h2 class="title">Latest <span class="inner">Trips</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                {% for event in events %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if event.image %}
+                                    <img src="{{ event.image.url }}"
+                                         alt="">
+                                {% endif %}
+                            </div>
+                            <div class="content">
+                                <h2 class="title"><a href="{{ event.get_absolute_url }}">{{ event.event_title }}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-user"></i></span>{{ event.event_for }} (Event for)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ event.from_date }}
+                                        (Start Date)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-calendar"></i></span>{{ event.to_date }}
+                                        (End Date)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa fa-map-marker"></i></span>{{ event.event_place }}
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="#"
+                                       class="link glbscl-link-btn hvr-bs">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <section class="achivement-area bg-with-black">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center">
+                        <h2 class="title">Our <span class="inner">Achievement</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-achivement">
+                        <div class="icon">
+                            <img src="{% static 'img/staff.png' %}" alt="">
+                        </div>
+                        <div class="content">
+                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
+                                {% total_client_bookings %}
+                            </h2>
+                            <p class="name">Clients</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-achivement">
+                        <div class="icon">
+                            <img src="{% static 'img/staff.png' %}" alt="">
+                        </div>
+                        <div class="content">
+                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
+                                {% total_drivers %}
+                            </h2>
+                            <p class="name">Drivers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-achivement">
+                        <div class="icon">
+                            <img src="{% static 'img/teacher.png' %}" alt="">
+                        </div>
+                        <div class="content">
+                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
+                                {% total_trip_bookings %}
+                            </h2>
+                            <p class="name">Tours</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="single-achivement">
+                        <div class="icon">
+                            <img src="{% static 'img/student.png' %}" alt="">
+                        </div>
+                        <div class="content">
+                            <h2 class="counter counter-up" data-counterup-time="1500" data-counterup-delay="30">
+                                {% total_apartment_bookings %}
+                            </h2>
+                            <p class="name">Rooms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="latest-news-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title text-center">
+                        <h2 class="title">Favourite <span class="inner">Hotels</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                {% for accommodation in accommodations %}
+                    <div class="col-lg-4 col-md-6 col-sm-8 col-12">
+                        <div class="single-news">
+                            <div class="img">
+                                {% if accommodation.image %}
+                                    <img src="{{ accommodation.image.url }}"
+                                         alt="">
+                                {% endif %}
+                            </div>
+
+                            <div class="content">
+                                <h2 class="title">{{ accommodation.name }}</h2>
+                                <ul class="meta">
+                                    <li class="info"><span class="icon"><i class="fa fa-map-marker"></i></span>
+                                        {{ accommodation.address }}
+                                    </li>
+                                </ul>
+                                <div class="more text-right">
+                                    <a class="link glbscl-link-btn hvr-bs"
+                                       href="{% url 'accommodation_search' %}">Book Now</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    {% if feedbacks %}
+        <section class="testimonial-area bg-with-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title white text-center">
+                            <h2 class="title">What Visitors Say About Us?</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10 col-md-12 offset-lg-1 col-sm-12 col-12">
+                        <div class="testimonial-carousel owl-carousel">
+                            <div class="single-testimonial">
+                                <div class="auth-img">
+                                    <img src="{% static 'img/photo-1518180397-sms.jpg' %}"
+                                         alt="">
+
+                                </div>
+                                <div class="content">
+                                    <h2 class="name">TK Musakanda</h2>
+                                    <p class="text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                        eiusmo tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                        veniam,
+                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                        dolore eu fugiat nulla pariatur
+                                        .</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <section class="apply-now-area">
+        <div class="container">
+            <div class="apply-now">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-12">
+                        <h2 class="title">Looking for any other Service?</h2>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-12">
+                        <a href="{% url 'contact' %}"
+                           class="link glbscl-link-btn hvr-bs" style="color: #007bff !important;">Contact Us Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

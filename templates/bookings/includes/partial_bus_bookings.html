@@ -1,0 +1,15 @@
+{% for bus in buses %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ bus.traveller_first_name }} {{ bus.traveller_last_name }}</td>
+        <td>{{ bus.route }}</td>
+        <td>{{ bus.bus }}</td>
+        <td>{{ bus.bus.departure_time }}</td>
+        <td>{{ bus.travel_date }}</td>
+        <td>{{ bus.created_at }}</td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Bus</td>
+    </tr>
+{% endfor %}

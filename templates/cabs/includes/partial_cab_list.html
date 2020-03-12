@@ -1,0 +1,35 @@
+{% for cab in cabs %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ cab.number }}</td>
+        <td>{{ cab.taxi_type }}</td>
+        <td>{{ cab.total_seats }}</td>
+        <td>
+            {% if cab.image %}
+                <img src="{{ cab.image.url }}"
+                     alt="" width="80"/>
+            {% endif %}
+        </td>
+        <td>{{ cab.driver }}</td>
+        <td>{{ cab.fare_ratio }}</td>
+        <td>{{ cab.source }}</td>
+        <td>
+            <button type="button"
+                    class="btn btn-warning btn-sm js-view-cab"
+                    data-url="{% url 'cab_view' cab.pk %}">
+                <span class="glyphicon glyphicon-eye-open"></span> View
+            </button>
+            <a href="{% url 'cab_update' cab.pk %}" class="btn btn-info btn-sm">
+                <span class="fa fa-pencil-square-o"></span> Edit</a>
+            <button type="button"
+                    class="btn btn-danger btn-sm js-delete-cab"
+                    data-url="{% url 'cab_delete' cab.id %}">
+                <span class="glyphicon glyphicon-trash"></span> Delete
+            </button>
+        </td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="10" class="text-center bg-warning">No Cab</td>
+    </tr>
+{% endfor %}

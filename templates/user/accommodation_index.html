@@ -1,0 +1,57 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+<body>
+
+{% block content %}
+    <section class="page-breadcumb-area bg-with-black">
+        <div class="container text-center">
+            <h2 class="title">Accommodation</h2>
+            <ul class="links">
+                <li><a href="{% url 'index_public' %}">Home</a></li>
+                <li><a href='javascript:void(0);'>Accommodation</a></li>
+                 <button class="btn btn--white btn--animated" onclick="location.href='{% url 'login' %}'">Book Now</button>
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="latest-event">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for rental in rentals %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="single-event">
+                            <div class="img">
+                                {% if rental.image %}
+                                    <img src="{{ rental.image.url }}"
+                                         alt="">
+                                {% endif %}
+                            </div>
+                            <div class="content">
+                                <h2 class="title"><a href="{{ rental.get_absolute_url }}">{{ rental.name }}</a>
+                                </h2>
+                                <ul class="list">
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-map-marker"></i></span>{{ rental.address }} (Address)
+                                    </li>
+                                    <li class="info"><span class="icon"><i
+                                            class="fa fa-dollar"></i></span>{{ rental.lowest_charge }}
+                                        (Starting Fee)
+                                    </li>
+                                </ul>
+                                <div class="more text-center">
+                                    <a href="#"
+                                       class="link glbscl-link-btn hvr-bs">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+</body>

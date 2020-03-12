@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html" ; charset="utf-8">
+    <link href="{% static "css/pdf.css" %}" rel="stylesheet">
+    <title>Booking Confirmation</title>
+
+</head>
+<body>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 ">
+
+        <div class="container">
+            <center>
+                <!-- Displays the Hotel Details -->
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h1 class="big">zuulatravels.com Reservations</h1></div>
+
+                    <div class="panel-body">
+                        <h1><b>{{ booking.bus.route }} </b></h1>
+                        <p>Starting Point: {{ booking.bus.route.start_point }}.</p>
+                        <p>Destination: {{ booking.bus.route.end_point }}</p>
+                    </div>
+                </div>
+                <!-- Displays the Booking Details such as Room name etc.. -->
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>Booking Details</h3></div>
+                    <div class="panel-body">
+                        <p><b>Reference Number:</b> {{ booking.id }}</p>
+                        <p><b>Traveller Name:</b> {{ booking.traveller_first_name }} {{ booking.traveller_last_name }}
+                        </p>
+                        <p><b>Bus Number:</b> {{ booking.bus.number }}</p>
+                        <p><b>Departure Time:</b> {{ booking.bus.departure_time }}</p>
+                        <p><b>Route Time:</b> {{ booking.bus.route.route_time }}</p>
+                        <p><b>Route Price: USH</b> {{ booking.bus.route.price }} </p>
+                        <p><b>Journey Date: USH</b> {{ booking.travel_date }} </p>
+                    </div>
+                </div>
+                <!-- Uses the City that the hotel is located in to pull a map from Google-->
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>City Map</h3></div>
+                    <div class="panel-body">
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?size=680x400&zoom=13&center={{ booking.route.via }}&style=feature:all|element:all"/>
+                    </div>
+                    <div class="panel-footer"><h3>Safe Journey along your {{ booking.bus.route }} Journey!</h3></div>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>
+</body>
+</html>

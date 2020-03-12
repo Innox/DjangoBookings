@@ -1,0 +1,65 @@
+<div class="left_col scroll-view">
+    <div class="navbar nav_title" style="border: 0;">
+        <a href="{% url 'dashboard' %}" class="site_title"><i class="fa fa-spinner"></i>
+            <span>Zuula</span>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div class="menu_section">
+            <ul class="nav side-menu">
+                <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li><a><i class="fa fa fa-home"></i> Accommodation <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'accommodation_list' %}">Hotels</a></li>
+                        <li><a href="{% url 'room_list' %}">Rooms</a></li>
+                        <li><a href="{% url 'type_list' %}">Room Type</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="{% url 'event_list' %}"><i class="fa fa-globe"></i> Tour & Safaris</a></li>
+
+                <li><a><i class="fa fa-bus"></i> Transport <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'route_list' %}">Routes</a></li>
+                        <li><a href="{% url 'bus_list' %}">Bus</a></li>
+                        <li><a href="{% url 'taxi_list' %}">Special Hire</a></li>
+                        <li><a href="{% url 'cab_list' %}">Airport Taxi</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="{% url 'driver_list' %}"><i class="fa fa-users"></i>Drivers</a></li>
+
+                <li><a><i class="fa fa-bullhorn"></i> Announcement <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'news_list' %}">News</a></li>
+                    </ul>
+                </li>
+                <li><a><i class="fa fa-desktop"></i>Frontend <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{% url 'slider_list' %}"> Manage Slider</a></li>
+                        <li><a href="{% url 'about_list' %}"> Frontend About</a></li>
+                    </ul>
+                </li>
+                {#                <li><a href="#"><i class="fa fa-commenting"></i> Feedback</a></li>#}
+
+                <li><a href="{% url 'room_bookings_list' %}"><i class="fa fa-home"></i>Room Bookings</a></li>
+                <li><a href="{% url 'bus_bookings_list' %}"><i class="fa fa-bus"></i>Bus Bookings</a></li>
+                <li><a href="{% url 'trip_bookings_list' %}"><i class="fa fa-globe"></i>Trip Bookings</a></li>
+                <li><a href="{% url 'cab_bookings_list' %}"><i class="fa fa-cab"></i>Cab Bookings</a></li>
+                <li><a href="{% url 'taxi_bookings_list' %}"><i class="fa fa-taxi"></i>Taxi Bookings</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="menu_section">
+        <h3>Live On</h3>
+        <ul class="nav side-menu">
+            <li><a href="javascript:void(0)"><i class="fa fa-helicopter"></i> Flight Tracking <span
+                    class="label label-success pull-right">Coming Soon</span></a></li>
+        </ul>
+    </div>
+</div>

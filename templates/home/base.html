@@ -1,0 +1,270 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block head %}
+        {% block meta %}
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+            <!-- Meta, title, CSS, favicons, etc. -->
+            <meta charset="utf-8">
+            <meta charset="ISO-8859-15">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock meta %}
+        {% block stylesheets %}
+            <!-- CSS -->
+            <link rel="stylesheet" href="{% static 'css/front/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/front/jquery-ui.css' %}">
+            <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/front/owl.carousel.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/front/animate.css' %}">
+            <link rel="stylesheet" href="{% static 'css/front/meanmenu.css' %}">
+            <link rel="stylesheet" href="{% static 'css/front/jquery.fancybox.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/front/theme/slate-gray.css' %}">
+            <link rel="stylesheet" href="{% static 'css/front/responsive.css' %}">
+            <link rel="stylesheet" href="{% static 'assets/fonts/material-icons.min.css' %}">
+            <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+            <link
+                    href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
+                    rel="stylesheet" type='text/css'>
+
+            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+            <script src="{% static 'js/front/jquery-ui.js' %}"></script>
+            <script src="{% static 'js/jquery.validate.js' %}"></script>
+        {% endblock stylesheets %}
+        {#                <link href="{% static 'css/theme/black.css' %}" rel="stylesheet">#}
+
+    {% endblock head %}
+</head>
+
+<body>
+
+<header>
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-8 col-sm-12 col-12 hta-left">
+                    <div class="hta-box">
+                        <p class="text">Have you any question?</p>
+                    </div>
+                    <div class="hta-box">
+                        <span class="icon"><i class="fa fa-phone"></i></span>
+                        <p class="text">Call us : +256-774-488956</p>
+                    </div>
+
+                    <div class="hta-box">
+                        <span class="icon"><i class="fa fa-envelope"></i></span>
+                        <p class="text">Email us : info@zulatravels.com</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-4 col-sm-12 col-12 hta-right text-right">
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                        <div class="hta-box">
+                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                            <a class="text" href="{% url 'dashboard' %}">Dashboard</a>
+                        </div>
+
+                        <div class="hta-box">
+                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                            <a class="text" href="{% url 'auth_logout' %}">Log Out</a>
+                        </div>
+
+                    {% elif request.user.is_authenticated and not request.user.is_staff %}
+                        <div class="hta-box">
+                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                            <a class="text" href="{% url 'auth_logout' %}">Log Out</a>
+                        </div>
+
+                    {% else %}
+
+                        <div class="hta-box">
+                            <span class="icon"><i class="fa fa-sign-in-alt"></i></span>
+                            <a class="text" href="{% url 'auth_login' %}">Log In</a>
+                        </div>
+                        <div class="hta-box">
+                            <a class="text" href="{% url 'registration_register' %}">Register</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 offset-lg-0 col-md-4 offset-md-3 col-sm-6 col-6">
+                    <div class="logo">
+                        <a href="{% url 'index_public' %}">
+                            <img src="{% static 'images/zula-logo.png' %}"
+                                 alt=""/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-10 offset-lg-0 col-md-8 offset-md-2 col-sm-12 col-12">
+                    <div class="menu">
+                        <nav id="mobile_menu_active">
+                            <ul id="menu">
+                                <li><a href="{% url 'accommodation_search' %}">Accommodation</a></li>
+                                <li><a href="{% url 'event_wall' %}">Tours & Safaris</a></li>
+                                <li><a href="#">Flights</a></li>
+                                <li><a href="#">Transport <span class="icon fa fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                        <li><a href="{% url 'route_search' %}">Bus Booking</a></li>
+                                        <li><a href="{% url 'cab_wall' %}">Airport Taxi Booking</a></li>
+                                        <li><a href="{% url 'taxi_wall' %}">Special Hire Booking</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Announcement <span class="icon fa fa-chevron-down"></span></a>
+                                    <ul class="drop">
+                                        <li><a href="{% url 'news_wall' %}">News</a></li>
+                                        <li><a href="{% url 'contact' %}">Feedback</a></li>
+                                    </ul>
+                                </li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="#">Bookings <span class="icon fa fa-chevron-down"></span></a>
+                                        <ul class="drop">
+                                            <li><a href="{% url 'user_bus_bookings' %}">Bus Bookings</a></li>
+                                            <li><a href="{% url 'user_cab_bookings' %}">Airport Cab Bookings</a></li>
+                                            <li><a href="{% url 'user_taxi_bookings' %}">Taxi Bookings</a></li>
+                                            <li><a href="{% url 'user_trip_bookings' %}">Tour Bookings</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+{% block content %}
+{% endblock content %}
+{% include "home/scripts.html" %}
+
+<!-- footer content -->
+<footer>
+    <div class="footer-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-7 col-sm-7 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title"><span>About Us:</span></h2>
+                        <p class="text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation
+                            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit
+                            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-5 col-sm-5 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title"><span>Quick Link:</span></h2>
+                        <ul class="links">
+                            <li><a href="{% url 'index_public' %}">Home</a></li>
+                            {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                            {% else %}
+                                <li><a href="{% url 'auth_login' %}">Login</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'registration_register' %}">Register</a></li>
+                            <li><a href="{% url 'accommodation_search' %}">Accommodation</a></li>
+                            <li><a href="{% url 'event_wall' %}">Trips</a></li>
+                            <li><a href="{% url 'taxi_wall' %}">Rental Cars</a></li>
+                            <li><a href="{% url 'cab_wall' %}">Airport Taxi Booking</a></li>
+                            <li><a href="{% url 'route_search' %}">Bus Booking</a></li>
+                            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-5 col-sm-5 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title">Zuula Links</h2>
+                        <ul class="social">
+                            <li><a href="https://www.facebook.com/" target="_blank"><i
+                                    class="fa fa-facebook"></i></a></li>
+
+                            <li><a href="https://www.twitter.com/" target="_blank"><i
+                                    class="fa fa-twitter"></i></a>
+                            </li>
+
+                            <li><a href="https://www.linkedin.com/" target="_blank"><i
+                                    class="fa fa-linkedin"></i></a></li>
+
+                            <li><a href="https://plus.google.com/" target="_blank"><i
+                                    class="fa fa-google-plus"></i></a>
+                            </li>
+
+                            <li><a href="https://www.youtube.com/" target="_blank"><i
+                                    class="fa fa-youtube"></i></a>
+                            </li>
+
+                            <li><a href="https://www.instagram.com/" target="_blank"><i
+                                    class="fa fa-instagram"></i></a></li>
+
+                            <li><a href="https://www.pinterest.com/" target="_blank"><i
+                                    class="fa fa-pinterest"></i></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-7 col-sm-7 col-12">
+                    <div class="footer-widget">
+                        <h2 class="fw-title">Get in Touch</h2>
+                        <ul class="address">
+                            <li><span class="icon"><i class="fa fa-phone"></i></span>
+                                +256-774-488956
+                            </li>
+                            <li><span class="icon"><i class="fa fa-envelope"></i></span>
+                                info@zulatravels.com
+                            </li>
+                            <li><span class="icon"><i class="fa fa-map-marker"></i></span>
+                                Entebbe-Wakiso
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom-area">
+        <div class="container text-center">
+            <p class="copyright">
+                Zuula Tours & Travels
+            </p>
+        </div>
+    </div>
+</footer>
+<script src="{% static 'vendors/jquery-ui/jquery-ui.js' %}"></script>
+<link rel="stylesheet" href="{% static 'js/owl.carousel.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/counterup.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.meanmenu.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.fancybox.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.scrollUp.js' %}">
+<link rel="stylesheet" href="{% static 'js/jquery.waypoints.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/popper.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/bootstrap.min.js' %}">
+<link rel="stylesheet" href="{% static 'js/theme.js' %}">
+
+{% block scripts %}
+{% endblock scripts %}
+</body>
+</html>
+
