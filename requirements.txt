@@ -10,7 +10,7 @@ cloudinary==1.11.0
 colorama==0.4.3
 confusable-homoglyphs==3.2.0
 coverage==5.0.3
-cryptography==2.8
+cryptography==3.2
 decorator==4.4.2
 defusedxml==0.6.0
 distlib==0.3.0
