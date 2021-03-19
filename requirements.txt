@@ -26,7 +26,7 @@ django-libs==2.0.2
 django-registration==2.4.1
 django-restframework==0.0.1
 django-widget-tweaks==1.4.5
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-registration==0.0.2
 entrypoints==0.3
 Fabric3==1.14.post1
